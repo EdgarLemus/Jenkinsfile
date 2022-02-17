@@ -49,7 +49,7 @@ pipeline {
                                                         project: [id: '10000'],
                                                         summary: 'SQA Sinergia Tecnologica de Jira desde Jenkins con Banco Popular',
                                                         description: 'Realiza la integracion desde Jenkins mediante un Pipeline a Jira luego de ejecutar las pruebas.',
-                                                        issuetype: [id: '10004']]]
+                                                        issuetype: [id: '10006']]]
                         response = jiraNewIssue issue: testIssue , site: JIRASERVER
 
                         echo response.successful.toString()
