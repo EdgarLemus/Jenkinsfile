@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                 def testIssue = [fields: [ project: [id: '10000'],
+                 def testIssue = [fields: [ project: [key: 'PJ'],
                                 summary: 'New JIRA Created from Jenkins.',
                                 issuetype: [name: 'Bug']]]
 
