@@ -10,7 +10,7 @@ pipeline {
                                 description: 'New JIRA Created from Jenkins.',
                                 issuetype: [id: '3']]]
 
-    response = jiraNewIssue issue: 'LOCAL'
+    response = jiraNewIssue issue: testIssue, site: 'LOCAL'
 
     echo response.successful.toString()
     echo response.data.toString()
