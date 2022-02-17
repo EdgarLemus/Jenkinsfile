@@ -5,11 +5,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                 def testIssue = [fields: [
-                               project: [id: '10000'],
-                               summary: 'New JIRA Created from Jenkins.',
-                               description: 'New JIRA Created from Jenkins.',
-                               issuetype: [id: '3']]]
+                 def testIssue = [fields: [ project: [id: '10000'],
+                                summary: 'New JIRA Created from Jenkins.',
+                                description: 'New JIRA Created from Jenkins.',
+                                issuetype: [id: '3']]]
 
     response = jiraNewIssue issue: testIssue
 
