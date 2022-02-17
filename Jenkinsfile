@@ -7,7 +7,7 @@ pipeline {
                 echo 'Building..'
                  def testIssue = [fields: [ project: [id: '10000'],
                                 summary: 'New JIRA Created from Jenkins.',
-                                issuetype: [id: '3']]]
+                                issuetype: [name: 'Bug']]]
 
     response = jiraNewIssue issue: testIssue, site: 'LOCAL'
 
