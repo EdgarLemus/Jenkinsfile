@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     try {
-                         def issue = jiraGetIssue idOrKey: 'PJ-5', site: JIRASERVER
+                         def issue = jiraGetIssue idOrKey: 'PJ-8', site: JIRASERVER
                         RESULTADOSTAGE = 'SUCCESS'
                         RESULTADOKEYJIRA = issue.data.toString()                   
                       } catch (Exception e) {
