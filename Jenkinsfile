@@ -5,6 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                jiraComment body: 'Hola mundo', issueKey: 'PJ-5'
             }
         }
         stage('Test') {
