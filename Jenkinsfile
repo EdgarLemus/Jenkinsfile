@@ -3,7 +3,7 @@ pipeline {
 
     stages {
         stage('Build') {
-
+            steps {
                 echo 'Building..'
                 def testIssue = [fields : [project: [id: '10000'],
                                                         summary: 'SQA Sinergia Tecnologica de Jira desde Jenkins con Banco Popular',
@@ -13,7 +13,7 @@ pipeline {
 
                         echo response.successful.toString()
                         echo response.data.toString()
-
+            }
         }
         stage('Test') {
             steps {
