@@ -5,14 +5,21 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                 def testIssue = [fields: [ project: [key: 'PJ'],
-                                summary: 'New JIRA Created from Jenkins.',
-                                issuetype: [name: 'Bug']]]
+                 try{                           
+                            def testIssue = [fields : [
+                                                        project: [id: '10000'],
+                                                        summary: 'SQA Sinergia Tecnologica de Jira desde Jenkins con Banco Popular',
+                                                        description: 'Realiza la integracion desde Jenkins mediante un Pipeline a Jira luego de ejecutar las pruebas.',
+                                                        issuetype: [id: '10004']]]
+                     
+                        response = jiraNewIssue issue: testIssue , site: JIRASERVER
 
-    response = jiraNewIssue issue: testIssue, site: 'LOCAL'
-
-    echo response.successful.toString()
-    echo response.data.toString()
+                        echo response.successful.toString()
+                        echo response.data.toString()
+                        }catch (Exception e) {
+                          echo 'Exception occurred: ' + e.toString()                          
+                          RESULTADOSTAGE = currentBuild.result
+                      }
             }
         }
         stage('Test') {
