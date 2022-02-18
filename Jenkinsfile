@@ -10,10 +10,5 @@ pipeline {
                 bat 'gradle test'
             }
         }
-        stage('Deploy') {
-            steps {
-                
-            }
-        }
     }
 }
