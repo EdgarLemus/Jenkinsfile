@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                bat 'gradle test'
+                sh 'gradle test'
             }
         }
     }
