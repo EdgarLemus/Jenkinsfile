@@ -14,7 +14,7 @@ pipeline {
             steps {
             script {
                     echo JIRA_ISSUE_KEY
-                    echo JIRA_ISSUE_TAGS
+                    echo JIRA_ISSUE_SUMMARY
                 }
             }
         }
