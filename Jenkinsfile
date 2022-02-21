@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                bat 'gradle test --test  ** -t @' + JIRA_ISSUE_KEY
+                bat 'gradle test -Dcucumber.options="--tags @' + JIRA_ISSUE_KEY +'"'
             }
         }
         stage('save log build') {
