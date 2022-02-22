@@ -7,7 +7,7 @@ pipeline {
     environment {
         RESULTADOSTAGE = '' 
         RESULTADOKEYJIRA = ''
-        JIRASERVER = 'JiraToken'
+        JIRASERVER = 'Jira Connect'
    }
     
     stages {
@@ -29,6 +29,7 @@ pipeline {
             script {
                     echo JIRA_ISSUE_KEY
                     echo JIRA_ISSUE_SUMMARY
+                    echo JIRA_ISSUE_ISSUE_TYPE
                 }
             }
         }  
@@ -45,12 +46,21 @@ pipeline {
                       echo 'ENTRO'
                   }
               }
-              mail to: 'edgar.lemus@sqasa.co',
-             subject: "Sucess Pipeline: ",
-             body: "The pipeline finished successfully!"
           }
           failure {
-            echo 'failure..'
+            script {
+                  if('Bug' == JIRA_ISSUE_SUMMARY.split(':')[0]){
+                      echo 'codigo de comentario al bug'
+                  }else{
+                     def testIssue = [fields: [ project: [id: '10000'],
+                                 summary: 'Bug: Error en la ejecucion de las pruebas del caso de prueba ' + JIRA_ISSUE_KEY,
+                                 description: 'Se encuentra error en la ejecucion de las pruebas del caso de prueba ' + JIRA_ISSUE_KEY + ' adjunto evidencia de las pruebas.',
+                                 issuetype: [name: 'Bug']]]
+                      response = jiraNewIssue issue: testIssue, site: JIRASERVER
+                      echo response.successful.toString()
+                      echo response.data.toString()
+                  }
+              }
           }
           unsuccessful {
             echo 'unsuccessful..'
