@@ -45,6 +45,9 @@ pipeline {
                       echo 'ENTRO'
                   }
               }
+              mail to: 'edgar.lemus@sqasa.co',
+             subject: "Sucess Pipeline: ",
+             body: "The pipeline finished successfully!"
           }
           failure {
             echo 'failure..'
