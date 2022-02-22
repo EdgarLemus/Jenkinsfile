@@ -29,7 +29,7 @@ pipeline {
             script {
                     echo JIRA_ISSUE_KEY
                     echo JIRA_ISSUE_SUMMARY
-                    echo JIRA_ISSUE_ISSUE_TYPE
+                    
                 }
             }
         }  
