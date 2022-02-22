@@ -4,6 +4,12 @@ pipeline {
         label 'SQA_AGENTS'
     }
 
+    environment {
+        RESULTADOSTAGE = '' 
+        RESULTADOKEYJIRA = ''
+        JIRASERVER = 'JiraToken'
+   }
+    
     stages {
         stage('Test') {
             steps {
