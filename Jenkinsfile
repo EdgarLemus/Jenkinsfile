@@ -55,7 +55,8 @@ pipeline {
                       response = jiraNewIssue issue: testIssue, site: JIRASERVER
                       echo response.successful.toString()
                       echo 'ENTTT'
-                      echo response.data.toString() 
+                  def prueba = response.data.toString()
+                      echo prueba.split(', ')[1].split(':')[1]
                   if('Bug' == JIRA_ISSUE_SUMMARY.split(':')[0]){
                       def transitionInput =
                         [
