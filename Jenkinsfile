@@ -20,7 +20,13 @@ pipeline {
         
         stage('Excecute Test') {
             steps {
-                bat 'gradle test -Dcucumber.options="--tags @' + JIRA_ISSUE_KEY +'"'
+                script {
+                    if('Bug' == JIRA_ISSUE_SUMMARY.split(':')[0]){
+                          bat 'gradle test -Dcucumber.options="--tags @' + JIRA_ISSUE_SUMMARY.split('caso de prueba ')[1] +'"'
+                    }else{
+                         bat 'gradle test -Dcucumber.options="--tags @' + JIRA_ISSUE_KEY +'"'
+                    }
+                }
             }
         }
                 
@@ -28,8 +34,7 @@ pipeline {
             steps {
             script {
                     echo JIRA_ISSUE_KEY
-                    echo JIRA_ISSUE_SUMMARY
-                    
+                    echo JIRA_ISSUE_SUMMARY                    
                 }
             }
         }  
