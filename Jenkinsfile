@@ -48,7 +48,7 @@ pipeline {
             echo 'success..'    
               echo JIRA_ISSUE_KEY
               script {
-                  jiraLinkIssues type: 'Relates', inwardKey: 'PJ-8', outwardKey: 'PJ-15', site: JIRASERVER
+                  
               }
           }
           failure {
@@ -65,6 +65,7 @@ pipeline {
                       echo response.data.toString()
                       def ISSUE_NEW_KEY = response.data.toString()
                       echo ISSUE_NEW_KEY.split(', ')[1].split(':')[1]
+                      jiraLinkIssues type: 'Relates', inwardKey: JIRA_ISSUE_KEY, outwardKey: ISSUE_NEW_KEY.split(', ')[1].split(':')[1], site: JIRASERVER
                   }
               }
           }
