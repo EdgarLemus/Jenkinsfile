@@ -47,7 +47,8 @@ pipeline {
           success {
             echo 'success..'    
               echo JIRA_ISSUE_KEY
-              script {   
+              script {
+                  jiraAssignableUserSearch issueKey: JIRA_ISSUE_KEY, project: 'PJ', queryStr: '', site: JIRASERVER
                   if('Bug' == JIRA_ISSUE_SUMMARY.split(':')[0]){
                       def transitionInput =
                         [
@@ -61,7 +62,7 @@ pipeline {
           }
           failure {
             script {
-                jiraAssignableUserSearch issueKey: JIRA_ISSUE_KEY, project: 'PJ', queryStr: '', site: JIRASERVER
+                
                   if('Bug' == JIRA_ISSUE_SUMMARY.split(':')[0]){
                       echo 'codigo de comentario al bug'
                   }else{
