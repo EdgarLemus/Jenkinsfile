@@ -55,7 +55,7 @@ pipeline {
                                 id: '31'
                             ]
                         ]
-                      jiraTransitionIssue idOrKey: 'JIRA_ISSUE_KEY', input: transitionInput, site: JIRASERVER       
+                      jiraTransitionIssue idOrKey: JIRA_ISSUE_KEY, input: transitionInput, site: JIRASERVER       
                   }
               }
           }
