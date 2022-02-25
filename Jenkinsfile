@@ -45,7 +45,8 @@ pipeline {
     
     post {
           success {
-            echo 'success..'          
+            echo 'success..'    
+              echo JIRA_ISSUE_KEY
               script {
                   if('Bug' == JIRA_ISSUE_SUMMARY.split(':')[0]){
                       def transitionInput =
