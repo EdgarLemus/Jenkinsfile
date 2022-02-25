@@ -48,24 +48,7 @@ pipeline {
             echo 'success..'    
               echo JIRA_ISSUE_KEY
               script {
-                  def testIssue = [fields: [ project: [id: '10000'],
-                                 summary: 'Bug: Error en la ejecucion de las pruebas del caso de prueba ' + JIRA_ISSUE_KEY,
-                                 description: 'Se encuentra error en la ejecucion de las pruebas del caso de prueba ' + JIRA_ISSUE_KEY + ' adjunto evidencia de las pruebas.',
-                                 issuetype: [name: 'Bug']]]
-                      response = jiraNewIssue issue: testIssue, site: JIRASERVER
-                      echo response.successful.toString()
-                      echo 'ENTTT'
-                  def prueba = response.data.toString()
-                      echo prueba.split(', ')[1].split(':')[1]
-                  if('Bug' == JIRA_ISSUE_SUMMARY.split(':')[0]){
-                      def transitionInput =
-                        [
-                            transition: [
-                                id: '31'
-                            ]
-                        ]
-                      jiraTransitionIssue idOrKey: JIRA_ISSUE_KEY, input: transitionInput, site: JIRASERVER       
-                  }
+                  jiraLinkIssues type: 'Relates', inwardKey: 'PJ-8', outwardKey: 'PJ-15', site: JIRASERVER
               }
           }
           failure {
@@ -79,7 +62,9 @@ pipeline {
                                  issuetype: [name: 'Bug']]]
                       response = jiraNewIssue issue: testIssue, site: JIRASERVER
                       echo response.successful.toString()
-                      echo response.data.toString()                      
+                      echo response.data.toString()
+                      def ISSUE_NEW_KEY = response.data.toString()
+                      echo ISSUE_NEW_KEY.split(', ')[1].split(':')[1]
                   }
               }
           }
