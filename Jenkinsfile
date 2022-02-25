@@ -47,9 +47,22 @@ pipeline {
           success {
             echo 'success..'          
               script {
-                  if(JIRASERVER == 'JiraToken'){
-                      echo 'ENTRO'
+                  if('Bug' == JIRA_ISSUE_SUMMARY.split(':')[0]){
+                      def transitionInput =
+                        [
+                            transition: [
+                                id: '31'
+                            ]
+                        ]
+                      jiraTransitionIssue idOrKey: 'JIRA_ISSUE_KEY', input: transitionInput
                   }
+                  def transitionInput =
+                        [
+                            transition: [
+                                id: '31'
+                            ]
+                        ]
+                  jiraTransitionIssue idOrKey: 'JIRA_ISSUE_KEY', input: transitionInput
               }
           }
           failure {
