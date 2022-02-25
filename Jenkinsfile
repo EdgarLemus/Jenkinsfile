@@ -54,15 +54,8 @@ pipeline {
                                 id: '31'
                             ]
                         ]
-                      jiraTransitionIssue idOrKey: 'JIRA_ISSUE_KEY', input: transitionInput
+                      jiraTransitionIssue idOrKey: 'JIRA_ISSUE_KEY', input: transitionInput, site: JIRASERVER       
                   }
-                  def transitionInput =
-                        [
-                            transition: [
-                                id: '31'
-                            ]
-                        ]
-                  jiraTransitionIssue idOrKey: 'JIRA_ISSUE_KEY', input: transitionInput
               }
           }
           failure {
