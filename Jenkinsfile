@@ -45,27 +45,7 @@ pipeline {
     
     post {
           success {
-            echo 'success..'    
-              echo JIRA_ISSUE_KEY
-              script {
-                  
-                  jiraAssignableUserSearch issueKey: JIRA_ISSUE_KEY, project: 'PJ', queryStr: '', site: JIRASERVER
-                  
-                  def notify = [ subject: 'Update about TEST-01',
-               textBody: 'Just wanted to update about this issue...',
-               htmlBody: 'Just wanted to update about this issue...',
-               to: [ reporter: true,
-                     assignee: true,
-                     watchers: false,
-                     voters: false,
-                     users: [{
-                              name: 'Edgar Lemus'
-                            }]
-                   ]
-              ]
-                jiraNotifyIssue idOrKey: JIRA_ISSUE_KEY, notify: notify, site: JIRASERVER
-                  
-                  
+              script {  
                   if('Bug' == JIRA_ISSUE_SUMMARY.split(':')[0]){
                       def transitionInput =
                         [
@@ -73,15 +53,17 @@ pipeline {
                                 id: '31'
                             ]
                         ]
-                      jiraTransitionIssue idOrKey: JIRA_ISSUE_KEY, input: transitionInput, site: JIRASERVER       
+                      jiraTransitionIssue idOrKey: JIRA_ISSUE_KEY, input: transitionInput, site: JIRASERVER                      
+                      jiraAddComment comment: 'Bug ' + JIRA_ISSUE_KEY + ' execute sucessfully!', idOrKey: JIRA_ISSUE_KEY, site: JIRASERVER
+                  }else{
+                    jiraAddComment comment: 'Test ' + JIRA_ISSUE_KEY + ' execute sucessfully!', idOrKey: JIRA_ISSUE_KEY, site: JIRASERVER
                   }
               }
           }
           failure {
             script {
-                
                   if('Bug' == JIRA_ISSUE_SUMMARY.split(':')[0]){
-                      echo 'codigo de comentario al bug'
+                      jiraAddComment comment: 'Bug ' + JIRA_ISSUE_KEY + ' execute with failure!', idOrKey: JIRA_ISSUE_KEY, site: JIRASERVER
                   }else{
                      def testIssue = [fields: [ project: [id: '10000'],
                                  summary: 'Bug: Error en la ejecucion de las pruebas del caso de prueba ' + JIRA_ISSUE_KEY,
@@ -91,8 +73,10 @@ pipeline {
                       echo response.successful.toString()
                       echo response.data.toString()
                       def ISSUE_NEW_KEY = response.data.toString()
-                      echo ISSUE_NEW_KEY.split(', ')[1].split(':')[1]
+                      echo 'Asignacion de nuevo bug a la trasabilidad del test ' + JIRA_ISSUE_KEY + ' '
                       jiraLinkIssues type: 'Relates', inwardKey: JIRA_ISSUE_KEY, outwardKey: ISSUE_NEW_KEY.split(', ')[1].split(':')[1], site: JIRASERVER
+                      echo 'Comentario en el test ' + JIRA_ISSUE_KEY + ' '
+                      jiraAddComment comment: 'Bug ' + ISSUE_NEW_KEY.split(', ')[1].split(':')[1] + ' create sucessfully!', idOrKey: JIRA_ISSUE_KEY, site: JIRASERVER
                   }
               }
           }
