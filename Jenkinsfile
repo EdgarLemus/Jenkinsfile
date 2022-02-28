@@ -81,8 +81,5 @@ pipeline {
                   }
               }
           }
-          unsuccessful {
-            echo 'unsuccessful..'
-          }
     }
 }
