@@ -46,6 +46,7 @@ pipeline {
     post {
           success {
               script {  
+                  jiraAddComment comment: 'Bug ' + JIRA_ISSUE_KEY + ' executed sucessfully!', idOrKey: JIRA_ISSUE_KEY, site: JIRASERVER
                   if('Bug' == JIRA_ISSUE_SUMMARY.split(':')[0]){
                       def transitionInput =
                         [
@@ -53,17 +54,17 @@ pipeline {
                                 id: '31'
                             ]
                         ]
-                      jiraTransitionIssue idOrKey: JIRA_ISSUE_KEY, input: transitionInput, site: JIRASERVER                      
-                      jiraAddComment comment: 'Bug ' + JIRA_ISSUE_KEY + ' execute sucessfully!', idOrKey: JIRA_ISSUE_KEY, site: JIRASERVER
+                      jiraTransitionIssue idOrKey: JIRA_ISSUE_KEY, input: transitionInput, site: JIRASERVER
+                      jiraAddComment comment: 'Bug ' + JIRA_ISSUE_KEY + ' closed sucessfully!', idOrKey: JIRA_ISSUE_SUMMARY.split('caso de prueba ')[1], site: JIRASERVER
                   }else{
-                    jiraAddComment comment: 'Test ' + JIRA_ISSUE_KEY + ' execute sucessfully!', idOrKey: JIRA_ISSUE_KEY, site: JIRASERVER
+                    jiraAddComment comment: 'Test ' + JIRA_ISSUE_KEY + ' executed sucessfully!', idOrKey: JIRA_ISSUE_KEY, site: JIRASERVER
                   }
               }
           }
           failure {
             script {
                   if('Bug' == JIRA_ISSUE_SUMMARY.split(':')[0]){
-                      jiraAddComment comment: 'Bug ' + JIRA_ISSUE_KEY + ' execute with failure!', idOrKey: JIRA_ISSUE_KEY, site: JIRASERVER
+                      jiraAddComment comment: 'Bug ' + JIRA_ISSUE_KEY + ' executed with failure!', idOrKey: JIRA_ISSUE_KEY, site: JIRASERVER
                   }else{
                      def testIssue = [fields: [ project: [id: '10000'],
                                  summary: 'Bug: Error en la ejecucion de las pruebas del caso de prueba ' + JIRA_ISSUE_KEY,
@@ -76,7 +77,7 @@ pipeline {
                       echo 'Asignacion de nuevo bug a la trasabilidad del test ' + JIRA_ISSUE_KEY + ' '
                       jiraLinkIssues type: 'Relates', inwardKey: JIRA_ISSUE_KEY, outwardKey: ISSUE_NEW_KEY.split(', ')[1].split(':')[1], site: JIRASERVER
                       echo 'Comentario en el test ' + JIRA_ISSUE_KEY + ' '
-                      jiraAddComment comment: 'Bug ' + ISSUE_NEW_KEY.split(', ')[1].split(':')[1] + ' create sucessfully!', idOrKey: JIRA_ISSUE_KEY, site: JIRASERVER
+                      jiraAddComment comment: 'Bug ' + ISSUE_NEW_KEY.split(', ')[1].split(':')[1] + ' created sucessfully!', idOrKey: JIRA_ISSUE_KEY, site: JIRASERVER
                   }
               }
           }
