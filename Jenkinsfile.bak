@@ -45,6 +45,7 @@ pipeline {
     
     post {
           success {
+              echo 'sucess'
               script {  
                   jiraAddComment comment: 'Bug ' + JIRA_ISSUE_KEY + ' executed sucessfully!', idOrKey: JIRA_ISSUE_KEY, site: JIRASERVER
                   if('Bug' == JIRA_ISSUE_SUMMARY.split(':')[0]){
