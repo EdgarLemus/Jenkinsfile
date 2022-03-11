@@ -52,6 +52,7 @@ public class OLXSteps {
 			}			
 		}
 		return textElemento;
+		
 	}
 	
 	public void validarTextoEnPantalla(By elemento, String texto) {
