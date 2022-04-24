@@ -19,23 +19,17 @@ public class OLXBuscadorStepDefinitions {
 
 	@Given("^que me encuentro en la pagina de OLX con la url (.*)$")
 	public void queMeEncuentroEnLaPaginaDeOLXConLaUrlHttpsWwwOlxComCo(String url) {
-//		Logger logger = Logger.getLogger("MyLog");
-//		SeleniumWebDriver.ChromeWebDriver(url);
+		SeleniumWebDriver.ChromeWebDriver(url);
 	}
 
 	@When("^busco el proudcto en el buscador$")
 	public void buscoElProudctoEnElBuscador() {
-//		olxSteps.buscarProductoEnOLX();
+		olxSteps.buscarProductoEnOLX();
 	}
 
 	@Then("^podre ver el producto en pantalla$")
 	public void podreVerElProductoEnPantalla() {
-//		Logger logger = Logger.getLogger("MyLog");
-//		for(String tag : scenario.getSourceTagNames()){
-//			System.out.print("Tag: " + tag);
-//			logger.info(tag);
-//		}
-//		SeleniumWebDriver.driver.quit();
+		SeleniumWebDriver.driver.quit();
 	}
 
 	@After
