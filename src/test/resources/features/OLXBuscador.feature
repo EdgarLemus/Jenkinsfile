@@ -3,7 +3,7 @@ Feature: HU-001 Buscador OXL
   Quiero buscar en el buscador un producto
   Para ver el producto en la pagina
 
-  @PJ-8
+  @PJ-6
   Scenario Outline: <Escenario>
     Given que me encuentro en la pagina de OLX con la url <Url>
     When busco el proudcto en el buscador
